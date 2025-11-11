@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUBAT Book Exchange Shop - Buy & Sell Course Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1e3a8a; /* IUBAT Blue */
+            --secondary: #c53030; /* IUBAT Red */
+            --accent: #f59e0b; /* Gold accent */
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .auth-buttons button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-buttons button:hover {
+            background-color: #9c1c1c;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        /* Department Categories */
+        .department-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .department-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .department-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .department-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .department-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Book Listings */
+        .book-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .book-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-image {
+            height: 180px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            position: relative;
+        }
+        
+        .book-image::before {
+            content: 'BOOK COVER';
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+        
+        .book-details {
+            padding: 1.2rem;
+        }
+        
+        .book-details h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .book-price {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .book-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .book-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .btn-contact {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-save {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            border: 1px solid #ddd !important;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #1e40af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .department-categories {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://iubat.edu/wp-content/uploads/2019/01/Iubat-logo-300x263.png" alt="IUBAT Logo">
+                </div>
+                <div class="logo-text">IUBAT <span>Book Exchange</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Browse Books</a></li>
+                    <li><a href="#" id="sellBookBtn">Sell a Book</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn">Log In</button>
+                <button id="signupBtn">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Buy & Sell Your Course Books</h1>
+            <p>Find textbooks for your courses or sell the ones you no longer need. Search by course code to find exactly what you're looking for.</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by course code (e.g., CSE101, BBA201)...">
+                <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- All Departments -->
+            <section>
+                <h2 class="section-title">All Departments</h2>
+                <div class="department-categories">
+                    <div class="department-card" data-department="BCSE">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>BCSE</h3>
+                        <p>Computer Science & Engineering</p>
+                    </div>
+                    <div class="department-card" data-department="BSCE">
+                        <i class="fas fa-drafting-compass"></i>
+                        <h3>BSCE</h3>
+                        <p>Civil Engineering</p>
+                    </div>
+                    <div class="department-card" data-department="BBA">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>BBA</h3>
+                        <p>Business Administration</p>
+                    </div>
+                    <div class="department-card" data-department="BSAg">
+                        <i class="fas fa-tractor"></i>
+                        <h3>BSAg</h3>
+                        <p>Agricultural Studies</p>
+                    </div>
+                    <div class="department-card" data-department="BSME">
+                        <i class="fas fa-cogs"></i>
+                        <h3>BSME</h3>
+                        <p>Mechanical Engineering</p>
+                    </div>
+                    <div class="department-card" data-department="BATH">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>BATH</h3>
+                        <p>Arts & Humanities</p>
+                    </div>
+                    <div class="department-card" data-department="BSN">
+                        <i class="fas fa-user-nurse"></i>
+                        <h3>BSN</h3>
+                        <p>Nursing</p>
+                    </div>
+                    <div class="department-card" data-department="BSEE">
+                        <i class="fas fa-bolt"></i>
+                        <h3>BSEE</h3>
+                        <p>Electrical Engineering</p>
+                    </div>
+                    <div class="department-card" data-department="BAEcon">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>BAEcon</h3>
+                        <p>Economics</p>
+                    </div>
+                    <div class="department-card" data-department="BA English">
+                        <i class="fas fa-book-open"></i>
+                        <h3>BA in English</h3>
+                        <p>English Language & Literature</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Book Listings -->
+            <section>
+                <h2 class="section-title">Recent Book Listings</h2>
+                <div class="book-listings" id="bookListings">
+                    <!-- Book listings will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IUBAT Book Exchange</h3>
+                    <p>A platform for IUBAT students to buy and sell textbooks by course code.
+                       Build bonds and stay together.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Books</a></li>
+                        <li><a href="#">Sell a Book</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: bookexchange@gmail.com</li>
+                        <li>Phone: (880) 123-4567</li>
+                        <li>Campus: University Campus, Uttara</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Created by Shahidul Islam</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Log In to IUBAT Book Exchange</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUniversityId">University ID (8 digits)</label>
+                    <input type="text" id="loginUniversityId" pattern="[0-9]{8}" placeholder="e.g., 12345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign Up for IUBAT Book Exchange</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupUniversityId">University ID (8 digits)</label>
+                    <input type="text" id="signupUniversityId" pattern="[0-9]{8}" placeholder="e.g., 12345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupUniversityEmail">University Email</label>
+                    <input type="email" id="signupUniversityEmail" placeholder="name@iubat.edu" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Phone Number</label>
+                    <input type="tel" id="signupPhone" placeholder="e.g., 01712345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupDepartment">Department</label>
+                    <select id="signupDepartment" required>
+                        <option value="">Select Department</option>
+                        <option value="BCSE">BCSE - Computer Science & Engineering</option>
+                        <option value="BSCE">BSCE - Civil Engineering</option>
+                        <option value="BBA">BBA - Business Administration</option>
+                        <option value="BSAg">BSAg - Agricultural Studies</option>
+                        <option value="BSME">BSME - Mechanical Engineering</option>
+                        <option value="BATH">BATH - Arts & Humanities</option>
+                        <option value="BSN">BSN - Nursing</option>
+                        <option value="BSEE">BSEE - Electrical Engineering</option>
+                        <option value="BAEcon">BAEcon - Economics</option>
+                        <option value="BA English">BA in English - English Language & Literature</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sell Book Modal -->
+    <div class="modal" id="sellBookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sell a Book</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="sellBookForm">
+                <div class="form-group">
+                    <label for="bookTitle">Book Title</label>
+                    <input type="text" id="bookTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" id="bookAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookCourse">Course Code</label>
+                    <input type="text" id="bookCourse" placeholder="e.g., CSE101" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookPrice">Price (৳)</label>
+                    <input type="number" id="bookPrice" min="0" step="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookCondition">Condition</label>
+                    <select id="bookCondition" required>
+                        <option value="">Select Condition</option>
+                        <option value="new">New</option>
+                        <option value="like-new">Like New</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookDescription">Description</label>
+                    <textarea id="bookDescription" placeholder="Any additional details about the book..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">List Book for Sale</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample book data
+        const sampleBooks = [
+            {
+                id: 1,
+                title: "Introduction to Algorithms",
+                author: "Cormen, Leiserson, Rivest, Stein",
+                course: "CSE301",
+                price: 450,
+                condition: "Good",
+                description: "Used for Algorithms course. Some highlighting but in good condition."
+            },
+            {
+                id: 2,
+                title: "Calculus: Early Transcendentals",
+                author: "James Stewart",
+                course: "MAT201",
+                price: 600,
+                condition: "Like New",
+                description: "Barely used. No markings or highlights."
+            },
+            {
+                id: 3,
+                title: "University Physics with Modern Physics",
+                author: "Young and Freedman",
+                course: "PHY101",
+                price: 750,
+                condition: "Fair",
+                description: "Cover has some wear but pages are intact."
+            },
+            {
+                id: 4,
+                title: "Principles of Marketing",
+                author: "Philip Kotler",
+                course: "BBA202",
+                price: 550,
+                condition: "Good",
+                description: "Used for one semester. Some notes in pencil."
+            },
+            {
+                id: 5,
+                title: "Biology: The Unity and Diversity of Life",
+                author: "Cecie Starr, Ralph Taggart",
+                course: "BIO101",
+                price: 400,
+                condition: "Like New",
+                description: "Excellent condition. No markings."
+            },
+            {
+                id: 6,
+                title: "Fundamentals of Electric Circuits",
+                author: "Charles Alexander, Matthew Sadiku",
+                course: "EEE205",
+                price: 650,
+                condition: "Good",
+                description: "Previous owner's name inside cover but otherwise clean."
+            }
+        ];
+
+        // DOM Elements
+        const bookListings = document.getElementById('bookListings');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const sellBookBtn = document.getElementById('sellBookBtn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const sellBookModal = document.getElementById('sellBookModal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const departmentCards = document.querySelectorAll('.department-card');
+
+        // Display books
+        function displayBooks(books) {
+            bookListings.innerHTML = '';
+            
+            if (books.length === 0) {
+                bookListings.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No books found matching your search.</p>';
+                return;
+            }
+            
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <div class="book-image">
+                        <!-- Book cover placeholder -->
+                    </div>
+                    <div class="book-details">
+                        <h3>${book.title}</h3>
+                        <p class="book-author">by ${book.author}</p>
+                        <div class="book-meta">
+                            <span class="course-code">${book.course}</span>
+                            <span class="book-condition">${book.condition}</span>
+                        </div>
+                        <div class="book-price">৳${book.price}</div>
+                        <div class="book-actions">
+                            <button class="btn-contact">Contact Seller</button>
+                            <button class="btn-save">Save</button>
+                        </div>
+                    </div>
+                `;
+                bookListings.appendChild(bookCard);
+            });
+        }
+
+        // Search functionality
+        function searchBooks() {
+            const query = searchInput.value.trim().toUpperCase();
+            
+            if (query === '') {
+                displayBooks(sampleBooks);
+                return;
+            }
+            
+            const filteredBooks = sampleBooks.filter(book => 
+                book.course.includes(query) || 
+                book.title.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            displayBooks(filteredBooks);
+        }
+
+        // Filter by department
+        departmentCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const departmentPrefix = card.getAttribute('data-department');
+                let filteredBooks = [];
+                
+                // Map department codes to course prefixes
+                const departmentCourseMap = {
+                    'BCSE': 'CSE',
+                    'BSCE': 'CE',
+                    'BBA': 'BBA',
+                    'BSAg': 'AGR',
+                    'BSME': 'ME',
+                    'BATH': 'ATH',
+                    'BSN': 'NUR',
+                    'BSEE': 'EEE',
+                    'BAEcon': 'ECO',
+                    'BA English': 'ENG'
+                };
+                
+                const coursePrefix = departmentCourseMap[departmentPrefix];
+                if (coursePrefix) {
+                    filteredBooks = sampleBooks.filter(book => 
+                        book.course.startsWith(coursePrefix)
+                    );
+                }
+                
+                displayBooks(filteredBooks);
+                searchInput.value = coursePrefix || departmentPrefix;
+            });
+        });
+
+        // Modal functionality
+        function openModal(modal) {
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // Event Listeners
+        searchBtn.addEventListener('click', searchBooks);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchBooks();
+            }
+        });
+
+        loginBtn.addEventListener('click', () => openModal(loginModal));
+        signupBtn.addEventListener('click', () => openModal(signupModal));
+        sellBookBtn.addEventListener('click', () => openModal(sellBookModal));
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                closeModal(modal);
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target);
+            }
+        });
+
+        // Form submissions
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+            closeModal(loginModal);
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Signup functionality would be implemented here');
+            closeModal(signupModal);
+        });
+
+        document.getElementById('sellBookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Book listing functionality would be implemented here');
+            closeModal(sellBookModal);
+        });
+
+        // Initialize the page with all books
+        displayBooks(sampleBooks);
+    </script>
+</body>
+</html>
